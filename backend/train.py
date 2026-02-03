@@ -18,12 +18,17 @@ MODEL_VERSION = "v3"   #ringworm and vitiligo added
 
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-DATASET_DIR = os.environ.get(
-    "DATASET_DIR",
-    r"C:\Users\Kabeer\Desktop\College Shit\project exhibition\Skin_Project\final_split"
-)
+BASE_DIR = Path(__file__).resolve().parent        # backend/
+PROJECT_ROOT = BASE_DIR.parent                   # JHU_project/
 
-MODEL_DIR = os.environ.get("MODEL_DIR", r"C:\Users\Kabeer\Desktop\JHU project\models")
+DATASET_DIR = PROJECT_ROOT / "data" / "final_split"
+MODEL_DIR = PROJECT_ROOT / "models"
+
+for split in ["train", "val", "test"]:
+    p = DATASET_DIR / split
+    if not p.exists():
+        raise FileNotFoundError(f"Missing dataset split: {p}")
+
 
 BATCH_SIZE = 32
 EPOCHS = 20

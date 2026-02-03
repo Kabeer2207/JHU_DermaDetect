@@ -20,7 +20,11 @@ CORS(app)
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 BASE_DIR = Path(__file__).resolve().parent
-MODELS_DIR = BASE_DIR / "models"
+PROJECT_ROOT = BASE_DIR.parent
+
+FRONTEND_DIR = PROJECT_ROOT / "frontend"
+MODELS_DIR = PROJECT_ROOT / "models"
+
 
 MODEL_PATH = os.environ.get(
     "MODEL_PATH",
@@ -66,10 +70,12 @@ inference_transforms = transforms.Compose([
 # =========================
 
 def load_model(num_classes: int):
-    model = models.resnet50(pretrained=False)
+    model = models.resnet50(weights=None)
+
     model.fc = nn.Linear(model.fc.in_features, num_classes)
     model.load_state_dict(
-        torch.load(MODEL_PATH, map_location=DEVICE)
+        torch.load(MODEL_PATH, map_location=DEVICE, weights_only=True)
+
     )
     model.eval()
     return model.to(DEVICE)
@@ -106,11 +112,14 @@ def predict_image(image: Image.Image):
 
 @app.route("/")
 def index():
-    return send_from_directory("frontend", "index.html")
+    return send_from_directory(FRONTEND_DIR, "index.html")
+
 
 @app.route("/<path:filename>")
 def serve_frontend(filename):
-    return send_from_directory("frontend", filename)
+    return send_from_directory(FRONTEND_DIR, filename)
+
+
 
 @app.route("/api/health", methods=["GET"])
 def health():
