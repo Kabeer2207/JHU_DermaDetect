@@ -20,3 +20,6 @@ final_split/
 # Windows junk
 *.lnk
 Thumbs.db
+
+# .env
+*.env
