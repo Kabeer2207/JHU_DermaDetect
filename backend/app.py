@@ -2,7 +2,7 @@ import os
 import json
 from pathlib import Path
 from datetime import datetime
-
+from diagnosis_data import DIAGNOSIS_DATA
 import torch
 import torch.nn as nn
 from torchvision import models, transforms
@@ -162,14 +162,26 @@ def predict():
         if image is None:
             return jsonify({"error": "No image provided"}), 400
 
-        prediction, confidence, all_predictions = predict_image(image)
 
+        prediction, confidence, all_predictions = predict_image(image)
+        diagnosis_info = DIAGNOSIS_DATA.get(
+        prediction,
+        {
+        "name": prediction.replace("_", " "),
+        "severity": "Unknown",
+        "description": "No additional diagnostic information available.",
+        "symptoms": [],
+        "recommendations": []
+        }
+)
         return jsonify({
-            "success": True,
-            "prediction": prediction,
-            "confidence_percentage": round(confidence * 100, 2),
-            "all_predictions": all_predictions
-        })
+        "success": True,
+        "prediction": prediction,
+        "confidence_percentage": round(confidence * 100, 2),
+        "all_predictions": all_predictions,
+        "diagnosis_info": diagnosis_info
+})
+
 
     except Exception as e:
         print("Prediction error:", e)
