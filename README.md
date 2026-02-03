@@ -1,5 +1,5 @@
 # DermaDetect
-this is a test
+
 DermaDetect is an AI-powered skin disease detection system built using deep learning.
 It uses a ResNet50-based convolutional neural network served through a Flask backend
 with a modern web-based frontend for image upload, analysis, and diagnosis display.
