@@ -9,6 +9,8 @@ from torchvision import models, transforms
 from PIL import Image
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
+from dotenv import load_dotenv
+load_dotenv()
 
 # =========================
 # App setup
