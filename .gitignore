@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.pyc
+
+# Virtual environments
+venv/
+.env/
+
+# Model weights (ignore)
+models/*.pth
+models/*.pt
+
+# Datasets
+data/
+final_split/
+
+# Logs
+*.log
+
+# Windows junk
+*.lnk
+Thumbs.db
