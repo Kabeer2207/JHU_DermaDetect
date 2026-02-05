@@ -6,6 +6,7 @@ from diagnosis_data import DIAGNOSIS_DATA
 import torch
 import torch.nn as nn
 from torchvision import models, transforms
+from huggingface_hub import hf_hub_download
 from PIL import Image
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
@@ -28,14 +29,27 @@ FRONTEND_DIR = PROJECT_ROOT / "frontend"
 MODELS_DIR = PROJECT_ROOT / "models"
 
 
-MODEL_PATH = os.environ.get(
-    "MODEL_PATH",
-    str(MODELS_DIR / "resnet50_v3.pth")
+MODEL_PATH = Path(
+    os.environ.get(
+        "MODEL_PATH",
+        str(MODELS_DIR / "resnet50_v3.pth")
+    )
 )
+
 
 CLASS_NAMES_PATH = os.environ.get(
     "CLASS_NAMES_PATH",
     str(MODELS_DIR / "class_names.json")
+    )
+
+HF_MODEL_REPO = os.environ.get(
+    "HF_MODEL_REPO",
+    "Kabeer22/DermaDetect_Model"
+)
+
+HF_MODEL_FILENAME = os.environ.get(
+    "HF_MODEL_FILENAME",
+    "resnet50_v3.pth"
 )
 
 # =========================
@@ -71,10 +85,36 @@ inference_transforms = transforms.Compose([
 # Model loading
 # =========================
 
+def ensure_model_exists(model_path: Path):
+    """
+    Ensure the model file exists locally.
+    If not, download it from Hugging Face Hub.
+    """
+    if model_path.exists():
+        print(f"✅ Model already exists at {model_path}")
+        return
+
+    print("⬇️ Model not found locally. Downloading from Hugging Face Hub...")
+
+    downloaded_path = hf_hub_download(
+        repo_id=HF_MODEL_REPO,
+        filename=HF_MODEL_FILENAME,
+        repo_type="model"
+    )
+
+    model_path.parent.mkdir(parents=True, exist_ok=True)
+    model_path.write_bytes(Path(downloaded_path).read_bytes())
+
+    print(f"✅ Model downloaded and saved to {model_path}")
+
+
 def load_model(num_classes: int):
+    ensure_model_exists(MODEL_PATH)
+
     model = models.resnet50(weights=None)
 
     model.fc = nn.Linear(model.fc.in_features, num_classes)
+    
     model.load_state_dict(
         torch.load(MODEL_PATH, map_location=DEVICE, weights_only=True)
 
