@@ -9,7 +9,7 @@ from torchvision import datasets, models, transforms
 from torchvision.models import resnet50, ResNet50_Weights
 from tqdm import tqdm
 
-MODEL_VERSION = "v3"   #ringworm and vitiligo added
+MODEL_VERSION = "v3.1"   #general improvement
 
 
 # =========================
@@ -31,7 +31,7 @@ for split in ["train", "val", "test"]:
 
 
 BATCH_SIZE = 32
-EPOCHS = 20
+EPOCHS = 25 #default is 20, 25 to see what changes
 LEARNING_RATE = 3e-5
 MODEL_NAME = "resnet50"
 
