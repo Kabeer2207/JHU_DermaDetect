@@ -18,7 +18,7 @@ MODEL_VERSION = "v4"   #Unknown class added, cross entropy now weighted wrt trai
 # =========================
 
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-print(torch.device)
+
 BASE_DIR = Path(__file__).resolve().parent        # backend/
 PROJECT_ROOT = BASE_DIR.parent                   # JHU_project/
 
