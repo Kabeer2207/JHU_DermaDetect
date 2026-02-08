@@ -8,8 +8,9 @@ from torch.utils.data import DataLoader
 from torchvision import datasets, models, transforms
 from torchvision.models import resnet50, ResNet50_Weights
 from tqdm import tqdm
+from collections import Counter
 
-MODEL_VERSION = "v3.1"   #general improvement
+MODEL_VERSION = "v4"   #Unknown class added, cross entropy now weighted wrt training data quantity
 
 
 # =========================
@@ -17,7 +18,7 @@ MODEL_VERSION = "v3.1"   #general improvement
 # =========================
 
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
+print(torch.device)
 BASE_DIR = Path(__file__).resolve().parent        # backend/
 PROJECT_ROOT = BASE_DIR.parent                   # JHU_project/
 
@@ -77,6 +78,32 @@ test_dataset  = datasets.ImageFolder(test_dir, transform=val_test_transforms)
 class_names = train_dataset.classes
 num_classes = len(class_names)
 
+#=======================================================================================================================
+targets = train_dataset.targets  # numeric class labels
+class_counts = Counter(targets)
+
+print("\n📊 Class distribution:")
+for idx, name in enumerate(class_names):
+    print(f"{name:15s}: {class_counts[idx]}")
+
+num_classes = len(class_names)
+total_samples = sum(class_counts.values())
+
+class_weights = []
+
+for i in range(num_classes):
+    # Inverse frequency
+    weight = total_samples / (num_classes * class_counts[i])
+    class_weights.append(weight)
+
+class_weights = torch.tensor(class_weights, dtype=torch.float32).to(DEVICE)
+
+print("\n Class weights:")
+for name, w in zip(class_names, class_weights):
+    print(f"{name:15s}: {w:.3f}")
+
+# ======================================================================================================================
+
 print("✅ Classes discovered:")
 for i, cls in enumerate(class_names):
     print(f"  {i}: {cls}")
@@ -114,7 +141,8 @@ def get_model(num_classes: int):
 
 model = get_model(num_classes)
 
-criterion = nn.CrossEntropyLoss()
+criterion = nn.CrossEntropyLoss(weight=class_weights)
+
 optimizer = optim.Adam(
     [
         {"params": model.layer4.parameters(), "lr": LEARNING_RATE},
