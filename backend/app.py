@@ -14,6 +14,19 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # =========================
+# Model identity 
+# =========================
+
+MODEL_NAME = os.environ.get(
+    "MODEL_NAME",
+    "resnet50_v4"   # ← default fallback
+)
+
+MODEL_FILENAME = f"{MODEL_NAME}.pth"
+
+print(f"🧠 Using model: {MODEL_NAME}")
+
+# =========================
 # App setup
 # =========================
 
@@ -32,7 +45,7 @@ MODELS_DIR = PROJECT_ROOT / "models"
 MODEL_PATH = Path(
     os.environ.get(
         "MODEL_PATH",
-        str(MODELS_DIR / "resnet50_v3.pth")
+        str(MODELS_DIR / MODEL_FILENAME)
     )
 )
 
@@ -49,8 +62,9 @@ HF_MODEL_REPO = os.environ.get(
 
 HF_MODEL_FILENAME = os.environ.get(
     "HF_MODEL_FILENAME",
-    "resnet50_v3.pth"
+    MODEL_FILENAME
 )
+
 
 # =========================
 # Load class names (AUTO)
@@ -123,7 +137,7 @@ def load_model(num_classes: int):
     return model.to(DEVICE)
 
 model = load_model(NUM_CLASSES)
-print(f"🤖 Model loaded from: {MODEL_PATH}")
+
 
 # =========================
 # Prediction helper
