@@ -26,8 +26,12 @@ DIAGNOSIS_DATA = {
         "recommendations": [
             "Consult a dermatologist for diagnosis confirmation",
             "Avoid known triggers such as spicy food, alcohol, and extreme temperatures",
-            "Use gentle skin-care products",
-            "Apply broad-spectrum sunscreen daily"
+            "Use gentle, fragrance-free skin-care products",
+            "Apply broad-spectrum sunscreen daily",
+            "Limit exposure to extreme heat and sunlight",
+            "Avoid abrasive exfoliation or harsh treatments",
+            "Cleanse the face with lukewarm water only",
+            "Monitor flare-ups and note potential triggers"
         ]
     },
 
@@ -46,8 +50,12 @@ DIAGNOSIS_DATA = {
         ],
         "recommendations": [
             "Moisturize skin regularly using fragrance-free products",
-            "Avoid harsh soaps and known irritants",
-            "Wear soft, breathable fabrics",
+            "Avoid harsh soaps, detergents, and known irritants",
+            "Wear soft, breathable fabrics such as cotton",
+            "Limit hot showers and prolonged water exposure",
+            "Apply moisturizers immediately after bathing",
+            "Identify and avoid personal eczema triggers",
+            "Use a humidifier in dry environments",
             "Seek medical advice for persistent or severe symptoms"
         ]
     },
@@ -67,7 +75,11 @@ DIAGNOSIS_DATA = {
         "recommendations": [
             "Maintain regular skin hydration",
             "Use gentle exfoliation if recommended",
-            "Avoid excessive scrubbing",
+            "Avoid excessive scrubbing or friction",
+            "Apply moisturizers containing mild exfoliating agents",
+            "Limit long, hot showers that dry the skin",
+            "Wear loose-fitting clothing to reduce irritation",
+            "Be consistent with daily skin care routines",
             "Consult a dermatologist for persistent cases"
         ]
     },
@@ -88,6 +100,10 @@ DIAGNOSIS_DATA = {
             "Avoid squeezing or picking at the bumps",
             "Maintain proper skin hygiene",
             "Use non-comedogenic skincare products",
+            "Avoid heavy or oily cosmetics",
+            "Gently cleanse the affected area daily",
+            "Limit excessive exfoliation",
+            "Protect skin from unnecessary irritation",
             "Seek professional removal if desired"
         ]
     },
@@ -107,9 +123,13 @@ DIAGNOSIS_DATA = {
         ],
         "recommendations": [
             "Consult a dermatologist for long-term management",
-            "Moisturize skin regularly",
+            "Moisturize skin regularly to reduce dryness",
             "Avoid known triggers such as stress or skin injury",
-            "Follow a personalized treatment plan if prescribed"
+            "Follow a personalized treatment plan if prescribed",
+            "Limit alcohol consumption and smoking",
+            "Use gentle, non-irritating skincare products",
+            "Protect skin from extreme weather conditions",
+            "Monitor flare-ups and symptom patterns"
         ]
     },
 
@@ -128,6 +148,10 @@ DIAGNOSIS_DATA = {
         "recommendations": [
             "Keep the affected area clean and dry",
             "Avoid sharing personal items such as towels",
+            "Wash hands thoroughly after touching the area",
+            "Change clothing and bedding regularly",
+            "Avoid tight or non-breathable clothing",
+            "Do not scratch the affected skin",
             "Consult a healthcare professional for treatment guidance",
             "Complete the full course of recommended care"
         ]
@@ -147,9 +171,13 @@ DIAGNOSIS_DATA = {
         ],
         "recommendations": [
             "Consult a dermatologist for evaluation",
-            "Protect skin from sun exposure",
+            "Protect skin from sun exposure using sunscreen",
             "Use cosmetic camouflage if desired",
-            "Seek emotional and psychological support if needed"
+            "Avoid skin trauma or unnecessary friction",
+            "Maintain consistent skincare routines",
+            "Monitor changes in skin pigmentation",
+            "Seek emotional and psychological support if needed",
+            "Stay informed about management options"
         ]
     },
 
@@ -168,7 +196,11 @@ DIAGNOSIS_DATA = {
             "Maintain regular skincare and hygiene",
             "Use sunscreen to protect against UV damage",
             "Stay hydrated and maintain a balanced diet",
-            "Monitor skin for any future changes"
+            "Cleanse skin gently on a daily basis",
+            "Moisturize to preserve skin barrier health",
+            "Avoid excessive use of harsh products",
+            "Monitor skin for any future changes",
+            "Schedule routine skin check-ups if needed"
         ]
     }
 }
