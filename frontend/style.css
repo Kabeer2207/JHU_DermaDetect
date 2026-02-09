@@ -12,7 +12,7 @@
   --error: #ef4444;
   --text: #1f2937;
   --text-light: #6b7280;
-  --bg: #ffffff;
+  --bg: #FAFAFA;
   --surface: #f9fafb;
   --border: #e5e7eb;
   --spacing: 1rem;
@@ -269,11 +269,30 @@ body {
 }
 
 /* Info Cards */
+/* Image Section Spacing */
+.image-section {
+  margin-bottom: 2rem;
+}
 .main-content-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
 }
+
+.left-column {
+  display: grid;
+  gap: 2rem;
+  grid-auto-rows: max-content;
+}
+
+.right-column {
+  display: flex;
+}
+
+.right-column .info-card {
+  flex: 1;
+}
+
 .bottom-info-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
